@@ -1,0 +1,28 @@
+# docker compose up --build  →  API on http://localhost:8080 with a PostgreSQL database
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: fairshare
+      POSTGRES_USER: fairshare
+      POSTGRES_PASSWORD: fairshare
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fairshare"]
+      interval: 5s
+      retries: 10
+
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      DATABASE_URL: jdbc:postgresql://db:5432/fairshare
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db-data:
