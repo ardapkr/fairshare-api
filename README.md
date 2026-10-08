@@ -116,6 +116,8 @@ CI runs the tests, then builds the Docker image, starts it with PostgreSQL and m
 - Authentication, so groups are private to their members
 - Flyway migrations instead of `ddl-auto=update`
 
+**Tools:** Java 25 · Spring Boot · JPA · H2 · PostgreSQL · JUnit 5 · Docker · GitHub Actions · Claude Code
+
 ## License
 
 MIT
